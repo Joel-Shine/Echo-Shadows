@@ -66,27 +66,27 @@ window.addEventListener("keyup", e => { keys[e.key] = false; });
 // Touch Controls (Mobile)
 let isTouching = false;
 
-canvas.addEventListener("touchstart", (e) => {
-    e.preventDefault(); // prevent scrolling
-    isTouching = true;
-    const touch = e.touches[0];
-    player.x = touch.clientX - player.size / 2;
-    player.y = touch.clientY - player.size / 2;
+canvas.addEventListener("touchstart", function (e) {
+  e.preventDefault();
+  isTouching = true;
+  const touch = e.touches[0];
+  player.x = touch.clientX - player.width / 2;
+  player.y = touch.clientY - player.height / 2;
 });
 
-canvas.addEventListener("touchmove", (e) => {
-    e.preventDefault(); // prevent scrolling
-    if (isTouching) {
-        const touch = e.touches[0];
-        player.x = touch.clientX - player.size / 2;
-        player.y = touch.clientY - player.size / 2;
-    }
+canvas.addEventListener("touchmove", function (e) {
+  if (!isTouching) return;
+  e.preventDefault();
+  const touch = e.touches[0];
+  player.x = touch.clientX - player.width / 2;
+  player.y = touch.clientY - player.height / 2;
 });
 
-canvas.addEventListener("touchend", (e) => {
-    e.preventDefault();
-    isTouching = false;
+canvas.addEventListener("touchend", function (e) {
+  e.preventDefault();
+  isTouching = false;
 });
+
 
 // Touch D-pad (optional)
 const touch = { up:false, down:false, left:false, right:false };
@@ -351,4 +351,5 @@ installBtn.addEventListener("click", async () => {
     deferredPrompt = null;
   }
 });
+
 
