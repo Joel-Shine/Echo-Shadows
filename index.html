@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Echo Shadows</title>
+  <meta name="theme-color" content="#0b0f1a" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<div id="installPopup" style="
+  display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+  background:#222; color:#fff; padding:10px 20px; border-radius:10px; z-index:999;
+  font-family:sans-serif; box-shadow:0 4px 12px rgba(0,0,0,0.4);">
+  <span>Install Echo Shadows?</span>
+  <button id="installBtn" style="margin-left:10px; padding:5px 10px; border:none;
+    background:#76ffb9; color:#000; border-radius:5px; cursor:pointer;">Add</button>
+</div>
+
+<body>
+  <div id="topbar">
+    <div class="title">Echo Shadows</div>
+    <div class="stats"><span id="score">Score: 0</span> • <span id="best">Best: 0</span> • <span id="level">Lvl: 0</span></div>
+    <div class="help">Move: Arrows/WASD • Pause: P • Restart: Enter</div>
+  </div>
+  <canvas id="game"></canvas>
+
+  <!-- Touch controls for phone -->
+  <div id="touch-controls">
+    <div class="row">
+      <button data-dir="up">▲</button>
+    </div>
+    <div class="row">
+      <button data-dir="left">◀</button>
+      <button data-dir="down">▼</button>
+      <button data-dir="right">▶</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js');
+      });
+    }
+  </script>
+</body>
+</html>
