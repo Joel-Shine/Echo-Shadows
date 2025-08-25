@@ -61,49 +61,32 @@ window.addEventListener("keydown", e => {
 window.addEventListener("keyup", e => { keys[e.key] = false; });
 
 // ---- Touch Drag Controls ----
-let dragging = false;
+// --- Add this inside your game.js ---
+
+// Touch Controls (Mobile)
+let isTouching = false;
 
 canvas.addEventListener("touchstart", (e) => {
-  const t = e.touches[0];
-  const rect = canvas.getBoundingClientRect();
-
-  // scale from screen coords -> game coords
-  const scale = Math.min(canvas.width / VWIDTH, canvas.height / VHEIGHT);
-  const dw = VWIDTH * scale, dh = VHEIGHT * scale;
-  const dx = (canvas.width - dw) / 2, dy = (canvas.height - dh) / 2;
-
-  const gx = (t.clientX - rect.left - dx) / scale;
-  const gy = (t.clientY - rect.top - dy) / scale;
-
-  // start drag only if touch inside player
-  if (
-    gx >= player.x && gx <= player.x + player.w &&
-    gy >= player.y && gy <= player.y + player.h
-  ) {
-    dragging = true;
-    e.preventDefault();
-  }
+    e.preventDefault(); // prevent scrolling
+    isTouching = true;
+    const touch = e.touches[0];
+    player.x = touch.clientX - player.size / 2;
+    player.y = touch.clientY - player.size / 2;
 });
 
 canvas.addEventListener("touchmove", (e) => {
-  if (!dragging) return;
-  const t = e.touches[0];
-  const rect = canvas.getBoundingClientRect();
-
-  const scale = Math.min(canvas.width / VWIDTH, canvas.height / VHEIGHT);
-  const dw = VWIDTH * scale, dh = VHEIGHT * scale;
-  const dx = (canvas.width - dw) / 2, dy = (canvas.height - dh) / 2;
-
-  const gx = (t.clientX - rect.left - dx) / scale;
-  const gy = (t.clientY - rect.top - dy) / scale;
-
-  player.x = gx - player.w / 2;
-  player.y = gy - player.h / 2;
-  clampRect(player, player.w, player.h);
-  e.preventDefault();
+    e.preventDefault(); // prevent scrolling
+    if (isTouching) {
+        const touch = e.touches[0];
+        player.x = touch.clientX - player.size / 2;
+        player.y = touch.clientY - player.size / 2;
+    }
 });
 
-canvas.addEventListener("touchend", () => { dragging = false; });
+canvas.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    isTouching = false;
+});
 
 // Touch D-pad (optional)
 const touch = { up:false, down:false, left:false, right:false };
@@ -368,3 +351,4 @@ installBtn.addEventListener("click", async () => {
     deferredPrompt = null;
   }
 });
+
