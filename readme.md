@@ -33,7 +33,7 @@
 
 ## 🚀 Play Now
 
-👉 [Live Demo Link](#) *(host on GitHub Pages, Netlify, or Vercel)*
+👉 [Live Demo Link](https://joel-shine.github.io/Echo-Shadows/) *(host on GitHub Pages, Netlify, or Vercel)*
 
 You can also **install it on your phone**:  
 1. Open the link in Chrome or Safari.  
@@ -58,3 +58,4 @@ Clone the repo:
 ```bash
 git clone https://github.com/yourusername/echo-shadows.git
 cd echo-shadows
+
